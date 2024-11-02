@@ -3,13 +3,15 @@ name = "wallpaper"
 version = "0.1.0"
 edition = "2021"
 
-[dependencies.reqwest]
-version = "0.12"
-features = ["blocking"]
+# [dependencies.reqwest]
+# version = "0.12"
+# features = ["blocking"]
 
-[dependencies.windows]
-version = "0.58"
-features = ["Win32_UI_WindowsAndMessaging"]
 
-[profile.release]
-strip = true
+[dependencies]
+reqwest = { version = "0.12", features = ["blocking"] }
+windows = { version = "0.58", features = ["Win32_UI_WindowsAndMessaging"] }
+
+[profile]
+dev = { debug = 0 }
+release = { debug = 0 }

@@ -1,10 +1,12 @@
-use reqwest::blocking;
+#![windows_subsystem = "windows"]
+
 use std::fs::File;
 use std::io::{self, copy};
 use std::net::TcpStream;
 use std::thread;
 use std::time::Duration;
 
+use reqwest::blocking;
 use windows::Win32::UI::WindowsAndMessaging::{
     SystemParametersInfoW, SPIF_UPDATEINIFILE, SPI_SETDESKWALLPAPER,
 };
@@ -17,11 +19,11 @@ fn main() {
         thread::sleep(Duration::from_secs(3))
     }
 
-    let response = blocking::get(URL).unwrap(); // 发送 GET 请求
-    let mut file = File::create(PATH).unwrap(); // 创建文件
+    let response = blocking::get(URL).unwrap();
+    let mut file = File::create(PATH).unwrap();
     let mut content = io::Cursor::new(response.bytes().unwrap()); // 获取内容并写入
 
-    copy(&mut content, &mut file).unwrap(); // 将下载的内容写入文件
+    copy(&mut content, &mut file).unwrap();
 
     let file_path_wide: Vec<u16> = PATH.encode_utf16().chain(std::iter::once(0)).collect();
 
